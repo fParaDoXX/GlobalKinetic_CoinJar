@@ -1,0 +1,195 @@
+﻿@model GlobalKinetic_CoinJar.Models.ModelView
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<section class="content-header">
+    <div class="card">
+        <div class="card-header " id="headingOneItem">
+            <center>
+                <h2 class="mb-0">
+                    <button class="btn btn-toolbar" type="button" data-toggle="collapse" data-target="#collapseOneItem" aria-expanded="true" aria-controls="collapseOneItem">
+                        <h4>
+                            <b>
+                                Add New Coin To Coin Jar
+                            </b>
+                        </h4>
+                    </button>
+                </h2>
+            </center>
+        </div>
+    </div>
+
+    <hr class="line" />
+</section>
+
+
+
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-secondary">
+                        <h3 class="card-title">COIN INFO</h3>
+                    </div>
+                    <!-- /.card-header --> 
+                    <form asp-action="Edit" asp-route-id="@ViewBag.ID">
+                        <div class="card-body">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+
+                            <!--Fields Here-->
+
+                            <div class="form-row">
+                                <div class="form-group col-6">
+                                    <label asp-for="CoinJars.CurrentValue" class="control-label"></label>
+
+
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-edit"></i></span>
+                                        </div>
+                                        <input asp-for="CoinJars.CurrentValue" class="form-control" readonly />
+                                    </div>
+
+
+                                    <span asp-valIdation-for="CoinJars.CurrentValue" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group col-6">
+                                    <label asp-for="CoinJars.CurrentVolume" class="control-label"></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-edit"></i></span>
+                                        </div>
+                                        <input asp-for="CoinJars.CurrentVolume" class="form-control" readonly />
+                                    </div>
+                                    <span asp-valIdation-for="CoinJars.CurrentVolume" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-6">
+                                    <label asp-for="CoinJars.CoinID" class="control-label"></label>
+
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-search-plus"></i></span>
+
+                                        </div>
+                                        <select asp-for="CoinJars.CoinID" class="form-control select2bs4" asp-items="Model.CoinJars.CoinsSl"></select>
+                                    </div>
+                                    <span asp-valIdation-for="CoinJars.CoinID" class="text-danger"></span>
+                                </div>
+
+
+                            </div>
+
+                            <div class="form-row">
+
+                                <div class="form-group col-4">
+                                    <label asp-for="Coins.Name" class="control-label"></label>
+
+
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-edit"></i></span>
+                                        </div>
+                                        <input asp-for="Coins.Name" class="form-control" />
+                                    </div>
+
+
+                                    <span asp-valIdation-for="Coins.Name" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group col-4">
+                                    <label asp-for="Coins.Amount" class="control-label"></label>
+
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-edit"></i></span>
+                                        </div>
+                                        <input asp-for="Coins.Amount" class="form-control" />
+                                    </div>
+
+
+                                    <span asp-valIdation-for="Coins.Amount" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group col-4">
+                                    <label asp-for="Coins.Volume" class="control-label"></label>
+
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-edit"></i></span>
+                                        </div>
+                                        <input asp-for="Coins.Volume" class="form-control" />
+                                    </div>
+
+
+                                    <span asp-valIdation-for="Coins.Volume" class="text-danger"></span>
+                                </div>
+
+                            </div>
+
+                            <!-- ./Fields Here-->
+                        </div>
+
+                        <div class="card-footer">
+                            <hr />
+                            <div class="form-group">
+                                <input type="hidden" asp-for="CoinJars.ID" />
+                                <a asp-action="Index" class="btn btn-secondary " style="width:180px;">Cancel</a>
+                                <button type="submit" value="Create" class="btn btn-info" style="width: 180px;">Save</button>
+
+                            </div>
+                        </div>
+                    </form>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+
+<script>
+
+    $(document).ready(function () {
+
+        var OutcomeValue = $("#CoinJars_CoinID :selected").text();
+
+
+        $.getJSON("@Url.Action("GetCoinData", "CoinJars")", { Id: $("#CoinJars_CoinID").val() }, function (data) {
+
+            document.getElementById("Coins_Name").value = data.Name;
+            document.getElementById("Coins_Amount").value = data.Amount;
+            document.getElementById("Coins_Volume").value = data.Volume;
+        })
+
+    });
+
+
+    $(function () {
+        $("#CoinJars_CoinID").change(function () {
+
+           $.getJSON("@Url.Action("GetCoinData", "CoinJars")", { Id: $("#CoinJars_CoinID").val() }, function (data) {
+
+                document.getElementById("Coins_Name").value = data.Name;
+                document.getElementById("Coins_Amount").value = data.Amount;
+                document.getElementById("Coins_Volume").value = data.Volume;
+            })
+        })
+
+
+    })
+
+</script>

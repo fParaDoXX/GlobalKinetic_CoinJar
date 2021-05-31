@@ -1,0 +1,105 @@
+﻿@model GlobalKinetic_CoinJar.Models.ModelView
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<section class="content-header">
+    <div class="card">
+        <div class="card-header " id="headingOneItem">
+            <center>
+                <h2 class="mb-0">
+                    <button class="btn btn-toolbar" type="button" data-toggle="collapse" data-target="#collapseOneItem" aria-expanded="true" aria-controls="collapseOneItem">
+                        <h4>
+                            <b>
+                                Coin Jar History
+                            </b>
+                        </h4>
+                    </button>
+                </h2>
+            </center>
+        </div>
+    </div>
+
+    <hr class="line" />
+</section>
+
+
+
+<section class="content">
+    <div class="container-fluid ">
+        <div class="row ">
+            <div class="col-12 ">
+
+                <div class="card">
+                    <div class="card-header bg-secondary">
+                        <h3 class="card-title">COIN JAR</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="Table" class="table table-bordered  table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    
+                                    <th>Current Value</th>
+                                    <th>Current Volume</th>
+                                   
+                                    <th>Reset Counter</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach (var item in Model.CoinJarsIE)
+                                {
+                                    <tr>
+                                       
+                                        <td>@Html.DisplayFor(modelItem => item.CurrentValue)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.CurrentVolume)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.ResetCounter)</td>
+                                        
+
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                    <div class="card-footer">
+                        <hr />
+                        <div class="form-group">
+                            <a asp-action="Index" asp-controller="Home" class="btn btn-secondary" style="width:170px;">Cancel</a>
+                            <a asp-action="Create" class="btn btn-info" style="width:170px;">New</a>
+                        </div>
+
+                    </div>
+
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+
+
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<script type="text/javascript">
+
+        $(function () {
+
+            $('#Table').DataTable({
+                //"ordering": true,
+                //"info": true,
+                //"ordering": true,
+                "responsive": true,
+                "autoWidth": false,
+            });
+
+        });
+</script>
+
